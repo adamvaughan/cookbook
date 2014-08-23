@@ -1,0 +1,7 @@
+<header class="bar bar-nav">
+  <a class="icon icon-close pull-right" ng-click="main.hideMonths()"></a>
+</header>
+
+<div class="content">
+  <a class="btn btn-block" href="" ng-repeat="month in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]" ng-click="main.chooseMonth(month)">{{month | monthName}}</a>
+</div>

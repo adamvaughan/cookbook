@@ -1,0 +1,35 @@
+<title-bar back-path="/plans/{{main.plan.id}}"></title-bar>
+
+<menu></menu>
+
+<div class="bar bar-standard bar-footer">
+  <a href="" class="icon icon-plus pull-right" ng-click="main.showRecipes()"></a>
+</div>
+
+<div class="modal" ng-class="{ active: main.recipesVisible }">
+  <header class="bar bar-nav">
+    <a class="icon icon-close pull-right" ng-click="main.hideRecipes()"></a>
+  </header>
+
+  <div class="content">
+    <a class="btn btn-block" href="" ng-repeat="recipe in main.recipes | orderBy:'title'" ng-click="main.addRecipe(recipe)">{{recipe.title}}</a>
+  </div>
+</div>
+
+<div class="content">
+  <div class="content-padded">
+    <h1>{{main.plan.month | monthName}} {{main.day}}, {{main.plan.year}}</h1>
+    <h5 ng-if="main.meals.length == 0">No meals scheduled for today.</h5>
+  </div>
+
+  <ul class="table-view">
+    <li class="table-view-cell full-width" ng-repeat="meal in main.meals | orderBy:'meal.recipe.title'" ng-click="main.activateMeal(meal)" ng-class="{ active: main.activeMeal == meal }">
+      {{meal.recipe.title}}
+
+      <div class="meal-options" ng-show="main.activeMeal == meal">
+        <a class="btn btn-link pull-left" ng-href="/recipes/{{meal.recipeId}}">View</a>
+        <button type="button" class="btn btn-link pull-right" ng-click="main.removeMeal(meal)">Remove</button>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,62 @@
+/*
+ *= require ratchet/dist/css/ratchet
+ *= require ratchet/dist/css/ratchet-theme-ios
+ *= require_tree .
+ *= require_self
+ */
+
+ body {
+   font-family: 'Open Sans',sans-serif;
+   font-weight: 400;
+ }
+
+ h1, h2, label {
+   font-family: 'Open Sans Condensed',sans-serif;
+   font-weight: 300;
+   text-transform: lowercase;
+ }
+
+ h1 {
+   font-size: 28px;
+   padding-bottom: 10px;
+ }
+
+ h2, label {
+   font-size: 22px;
+ }
+
+ .title {
+   font-size: 22px;
+   font-weight: 700;
+ }
+
+ .navigate-right:after, .push-right:after {
+   content: '\e818';
+ }
+
+ .table-view-cell, .table-view-cell a {
+   text-overflow: ellipsis;
+   white-space: nowrap;
+ }
+
+ .table-view-cell.active, .table-view-cell.active a, .table-view-cell.step {
+   text-overflow: clip;
+   white-space: normal;
+ }
+
+ .table-view-cell.full-width {
+   padding-right: 15px;
+ }
+
+ .btn-outlined {
+   background-color: #fff;
+ }
+
+ .btn {
+   background-color: #fff;
+   color: #333;
+ }
+
+ .btn-link {
+   color: #007aff;
+ }

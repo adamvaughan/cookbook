@@ -1,0 +1,27 @@
+<title-bar></title-bar>
+
+<menu></menu>
+
+<div class="bar bar-standard bar-footer">
+  <a class="icon icon-plus pull-right" href="/plans/new"></a>
+</div>
+
+<div class="content">
+  <div class="content-padded">
+    <h1>Meal Plans</h1>
+  </div>
+
+  <div ng-repeat="year in main.years | orderBy:'toString()':true">
+    <div class="content-padded">
+      <h2>{{year}}</h2>
+    </div>
+
+    <ul class="table-view">
+      <li class="table-view-cell" ng-repeat="plan in main.groupedPlans[year] | orderBy:'month':true">
+        <a ng-href="/plans/{{plan.id}}" class="navigate-right">
+          {{plan.month | monthName}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

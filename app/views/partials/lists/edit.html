@@ -1,0 +1,35 @@
+<title-bar back-path="/plans/{{main.plan.id}}/list"></title-bar>
+
+<menu></menu>
+
+<div class="bar bar-standard bar-footer">
+  <a class="icon icon-plus pull-right" ng-click="main.addItem()"></a>
+</div>
+
+<div class="content">
+  <div class="content-padded">
+    <h1>Edit Shopping List</h1>
+  </div>
+
+  <form ng-submit="main.save()">
+    <ul class="table-view">
+      <li class="table-view-cell full-width" ng-repeat="item in main.list.items | orderBy:'createdAt'">
+        <div class="grid">
+          <div class="col-50">
+            <input type="number" ng-model="item.quantity">
+          </div>
+
+          <div class="description col-50">
+            <span ng-hide="item.manuallyAdded">{{item | ingredientDescription}}</span>
+            <input type="text" placeholder="Description" ng-model="item.description" ng-show="item.manuallyAdded">
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="content-padded">
+      <input type="submit" class="btn btn-primary btn-block" value="Save">
+      <a ng-href="/plans/{{main.plan.id}}/list" class="btn btn-block">Cancel</a>
+    </div>
+  </form>
+</div>

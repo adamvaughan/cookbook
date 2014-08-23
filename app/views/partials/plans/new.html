@@ -1,0 +1,16 @@
+<title-bar back-path="/plans"></title-bar>
+
+<menu></menu>
+
+<div class="modal" ng-class="{ active: main.yearsVisible }" ng-include="'/views/partials/plans/years.html'"></div>
+
+<div class="modal" ng-class="{ active: main.monthsVisible }" ng-include="'/views/partials/plans/months.html'"></div>
+
+<div class="content">
+  <div class="content-padded">
+    <h1>New Meal Plan</h1>
+
+    <div ng-include="'/views/partials/plans/form.html'"></div>
+    <a href="/plans" class="btn btn-block">Cancel</a>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+@import 'mixins.css.scss';
+
+.calendar {
+  a {
+    color: #000;
+  }
+
+  .table-view-cell {
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .header, .week {
+    &:after, &:before {
+      content: " ";
+      display: table;
+    }
+
+    &:after {
+      clear: both;
+    }
+  }
+
+  .header {
+    font-size: 12px;
+    padding: 2px 0;
+
+    span {
+      display: inline-block;
+      line-height: 18px;
+      text-align: center;
+      width: 36px;
+      font-weight: bold;
+    }
+  }
+
+  .week {
+    padding: 7px 0;
+    @include hairline(single, #c8c7cc, 0);
+  }
+
+  .day {
+    float: left;
+    text-align: center;
+    width: 14.285714286%;
+
+    a {
+      border-radius: 50%;
+      display: inline-block;
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
+      width: 36px;
+    }
+
+    &.has-meal {
+      a {
+        background-color: #007aff;
+        color: #fff;
+      }
+    }
+  }
+}

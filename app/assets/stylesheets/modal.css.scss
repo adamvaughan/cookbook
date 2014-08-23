@@ -1,0 +1,24 @@
+.modal {
+  h2 {
+    text-align: center;
+    color: #fff;
+  }
+
+  .bar, .content {
+    background-color: #000;
+  }
+
+  header a.icon {
+    color: #fff;
+  }
+
+  .btn {
+    background-color: #000;
+    border: none;
+    color: #fff;
+  }
+
+  &.active {
+    opacity: 0.9;
+  }
+}

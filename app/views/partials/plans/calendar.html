@@ -1,0 +1,20 @@
+<ul class="table-view">
+  <li class="table-view-cell full-width">
+    <div class="header">
+      <div class="day">S</div>
+      <div class="day">M</div>
+      <div class="day">T</div>
+      <div class="day">W</div>
+      <div class="day">T</div>
+      <div class="day">F</div>
+      <div class="day">S</div>
+    </div>
+
+    <div class="week" ng-repeat="week in weeks">
+      <div class="day" ng-repeat="day in week.days" ng-class="{ 'has-meal': day.meals.length }">
+        <span ng-if="day.number < 1">&nbsp;</span>
+        <a ng-href="/plans/{{plan.id}}/day/{{day.number}}" ng-if="day.number > 0">{{day.number}}</a>
+      </div>
+    </div>
+  </li>
+</ul>

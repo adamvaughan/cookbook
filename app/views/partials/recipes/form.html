@@ -1,0 +1,40 @@
+<form ng-submit="main.save()">
+  <label for="recipe_title">Title</label>
+  <input id="recipe_title" type="text" ng-model="main.recipe.title">
+
+  <label for="recipe_notes">Notes</label>
+  <textarea id="recipe_notes" rows="3" ng-model="main.recipe.notes"></textarea>
+
+  <h1>Ingredients</h1>
+
+  <div class="ingredient-group ingredient-{{$index}}" ng-repeat="ingredient in main.visibleIngredients()">
+    <div class="grid">
+      <div class="col-50">
+        <label for="ingredient_{{$index}}_quantity">Quantity</label>
+        <input id="ingredient_{{$index}}_quantity" type="text" ng-model="ingredient.quantity" ng-keypress="main.addIngredientAfter($index)">
+      </div>
+
+      <div class="col-50">
+        <label for="ingredient_{{$index}}_measurement">Measurement</label>
+        <input id="ingredient_{{$index}}_measurement" type="text" ng-model="ingredient.measurement" ng-keypress="main.addIngredientAfter($index)">
+      </div>
+    </div>
+
+    <label for="ingredient_{{$index}}_description">Description</label>
+    <input id="ingredient_{{$index}}_description" type="text" ng-model="ingredient.description" ng-keypress="main.addIngredientAfter($index)">
+
+    <label for="ingredient_{{$index}}_notes">Notes</label>
+    <input id="ingredient_{{$index}}_notes" type="text" ng-model="ingredient.notes" ng-keypress="main.addIngredientAfter($index)">
+
+    <button type="button" class="btn btn-block btn-outlined btn-negative" ng-click="main.removeIngredient(ingredient)">Remove</button>
+  </div>
+
+  <h1>Steps</h1>
+
+  <div class="step-group step-{{$index}}" ng-repeat="step in main.visibleSteps()">
+    <textarea id="step_{{$index}}_description" rows="4" ng-model="step.description" ng-keypress="main.addStepAfter($index)"></textarea>
+    <button type="button" class="btn btn-block btn-outlined btn-negative" ng-click="main.removeStep(step)">Remove</button>
+  </div>
+
+  <input type="submit" class="btn btn-primary btn-block" value="Save">
+</form>

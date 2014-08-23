@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: cookbook_development
+
+test:
+  <<: *default
+  database: cookbook_test
+
+production:
+  <<: *default
+  database: cookbook
+  username: cookbook
+  password: <%= ENV['COOKBOOK_DATABASE_PASSWORD'] %>
