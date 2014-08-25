@@ -31,11 +31,11 @@
           <input type="checkbox" ng-model="item.purchased" ng-change="main.saveList()">
         </div>
 
-        <div class="quantity col-15">
+        <div class="quantity col-15" ng-click="main.togglePurchased(item)">
           {{item.quantity}}
         </div>
 
-        <div class="description col-70">
+        <div class="description col-70" ng-click="main.togglePurchased(item)">
           {{item | ingredientDescription}}
         </div>
       </div>

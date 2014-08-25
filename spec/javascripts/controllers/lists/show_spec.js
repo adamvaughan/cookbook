@@ -76,6 +76,16 @@ describe('Controller: ListCtrl', function () {
     });
   });
 
+  describe('togglePurchased', function () {
+    it('toggles the purchased flag on the item and saves the list', function () {
+      var item = { purchased: false };
+      spyOn(controller, 'saveList');
+      controller.togglePurchased(item);
+      expect(item.purchased).toBeTruthy();
+      expect(controller.saveList).toHaveBeenCalled();
+    });
+  });
+
   describe('saveList', function () {
     it('saves the list', function () {
       spyOn(lists, 'save');

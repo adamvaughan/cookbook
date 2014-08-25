@@ -37,6 +37,11 @@
         });
       };
 
+      this.togglePurchased = function (item) {
+        item.purchased = !item.purchased;
+        this.saveList();
+      };
+
       this.saveList = function () {
         Lists.save(this.plan, this.list);
       };
