@@ -24,7 +24,17 @@
 
         save: function (plan, list) {
           var deferred = $q.defer();
+
           list = _.cloneDeep(list);
+          delete list.id;
+          delete list.planId;
+          delete list.createdAt;
+          delete list.updatedAt;
+
+          _.each(list.items, function (item) {
+            delete item.createdAt;
+            delete item.updatedAt;
+          });
 
           $http.put('/plans/' + plan.id + '/list', { list: list })
             .success(function (data) {
