@@ -25,14 +25,14 @@
   </div>
 
   <ul class="table-view">
-    <li class="table-view-cell full-width" ng-repeat="item in main.list.items | orderBy:'createdAt'">
+    <li id="item_{{$index}}" class="table-view-cell full-width" ng-repeat="item in main.list.items | orderBy:'createdAt'">
       <div class="grid" ng-class="{ purchased: item.purchased }">
         <div class="col-15">
-          <input type="checkbox" ng-model="item.purchased" ng-change="main.saveList()">
+          <input id="item_{{$index}}_purchased" type="checkbox" ng-model="item.purchased" ng-change="main.saveList()">
         </div>
 
         <div class="quantity col-15" ng-click="main.togglePurchased(item)">
-          {{item.quantity}}
+          {{item.quantity | number:0}}
         </div>
 
         <div class="description col-70" ng-click="main.togglePurchased(item)">

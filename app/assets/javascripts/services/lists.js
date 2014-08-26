@@ -13,6 +13,9 @@
 
           $http.get('/plans/' + planId + '/list')
             .success(function (data) {
+              _.each(data.items, function (item) {
+                item.quantity = parseFloat(item.quantity);
+              });
               deferred.resolve(data);
             })
             .error(function (data) {

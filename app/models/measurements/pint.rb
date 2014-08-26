@@ -13,7 +13,7 @@ module Measurements
       when measurement == Pint then quantity
       when measurement == Quart then quantity / 2.0
       when measurement == Gallon then quantity / 8.0
-      end.ceil
+      end
     end
   end
 end

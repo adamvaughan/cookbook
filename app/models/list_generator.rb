@@ -24,9 +24,10 @@ class ListGenerator
     ingredients = recipes.map(&:ingredients).flatten
 
     ingredients.map do |ingredient|
+      quantity = Quantity.parse(ingredient.quantity)
       description = ingredient.description.strip.downcase.singularize
       measurement = Measurement.lookup(ingredient.measurement)
-      ListItem.new(quantity: ingredient.quantity, measurement: measurement.full_name, description: description)
+      ListItem.new(quantity: quantity, measurement: measurement.full_name, description: description)
     end
   end
 
@@ -79,6 +80,8 @@ class ListGenerator
         selection = list_item_for_measurement
       end
     end
+
+    selection.quantity = selection.quantity.ceil
 
     if selection.measurement.blank?
       selection.description = selection.description.pluralize(selection.quantity)

@@ -10,7 +10,7 @@ module Measurements
       when measurement == Tablespoon then quantity / 3.0
       when measurement == Ounce then quantity / 6.0
       when measurement == Cup then quantity / 48.0
-      end.ceil
+      end
     end
   end
 end

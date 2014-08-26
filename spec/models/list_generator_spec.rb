@@ -7,8 +7,8 @@ describe ListGenerator do
     let!(:meal_2) { create(:meal, plan: plan, recipe: recipe_2, day: 2) }
 
     it "combines ingredients with the same description and compatible measurements" do
-      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: 1, measurement: 'cup', description: 'sugar')
-      ingredient_2 = create(:ingredient, recipe: recipe_2, quantity: 16, measurement: 'ounces', description: 'sugar')
+      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: '1', measurement: 'cup', description: 'sugar')
+      ingredient_2 = create(:ingredient, recipe: recipe_2, quantity: '16', measurement: 'ounces', description: 'sugar')
 
       list = ListGenerator.generate!(plan)
       expect(list.list_items.count).to eql(1)
@@ -20,8 +20,8 @@ describe ListGenerator do
     end
 
     it "keeps ingredients separate when their measurements are not compatible" do
-      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: 1, measurement: 'cup', description: 'sugar')
-      ingredient_2 = create(:ingredient, recipe: recipe_2, quantity: 2, measurement: 'package', description: 'sugar')
+      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: '1', measurement: 'cup', description: 'sugar')
+      ingredient_2 = create(:ingredient, recipe: recipe_2, quantity: '2', measurement: 'package', description: 'sugar')
 
       list = ListGenerator.generate!(plan)
       expect(list.list_items.count).to eql(2)
@@ -36,8 +36,8 @@ describe ListGenerator do
     end
 
     it "keeps ingredients separate when they have different descriptions" do
-      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: 1, measurement: 'cup', description: 'sugar')
-      ingredient_2 = create(:ingredient, recipe: recipe_2, quantity: 1, measurement: 'tablespoon', description: 'milk')
+      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: '1', measurement: 'cup', description: 'sugar')
+      ingredient_2 = create(:ingredient, recipe: recipe_2, quantity: '1', measurement: 'tablespoon', description: 'milk')
 
       list = ListGenerator.generate!(plan)
       expect(list.list_items.count).to eql(2)
@@ -52,8 +52,8 @@ describe ListGenerator do
     end
 
     it "combines ingredients with the same description and no measurement" do
-      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: 1, measurement: '', description: 'apple')
-      ingredient_2 = create(:ingredient, recipe: recipe_2, quantity: 6, measurement: '', description: 'apples')
+      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: '1', measurement: '', description: 'apple')
+      ingredient_2 = create(:ingredient, recipe: recipe_2, quantity: '6', measurement: '', description: 'apples')
 
       list = ListGenerator.generate!(plan)
       expect(list.list_items.count).to eql(1)
@@ -65,8 +65,8 @@ describe ListGenerator do
     end
 
     it "handles ingredients that use abbreviations" do
-      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: 1, measurement: 'tablespoon', description: 'milk')
-      ingredient_2 = create(:ingredient, recipe: recipe_2, quantity: 2, measurement: 'tbsps', description: 'milk')
+      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: '1', measurement: 'tablespoon', description: 'milk')
+      ingredient_2 = create(:ingredient, recipe: recipe_2, quantity: '2', measurement: 'tbsps', description: 'milk')
 
       list = ListGenerator.generate!(plan)
       expect(list.list_items.count).to eql(1)
@@ -78,9 +78,9 @@ describe ListGenerator do
     end
 
     it "handles measurements that are not recognized" do
-      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: 1, measurement: 'pinch', description: 'salt')
-      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: 2, measurement: 'pinches', description: 'salt')
-      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: 1, measurement: 'tablespoon', description: 'salt')
+      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: '1', measurement: 'pinch', description: 'salt')
+      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: '2', measurement: 'pinches', description: 'salt')
+      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: '1', measurement: 'tablespoon', description: 'salt')
 
       list = ListGenerator.generate!(plan)
       expect(list.list_items.count).to eql(2)
@@ -92,6 +92,19 @@ describe ListGenerator do
       list_item = list.list_items.find { |list_item| list_item.measurement == 'tablespoon' }
       expect(list_item.quantity).to eql(1)
       expect(list_item.description).to eql('salt')
+    end
+
+    it "handles ingredients with fractional quantities" do
+      ingredient_1 = create(:ingredient, recipe: recipe_1, quantity: '1/4', measurement: 'cup', description: 'sugar')
+      ingredient_2 = create(:ingredient, recipe: recipe_2, quantity: '1/2', measurement: 'cup', description: 'sugar')
+
+      list = ListGenerator.generate!(plan)
+      expect(list.list_items.count).to eql(1)
+
+      list_item = list.list_items.first
+      expect(list_item.quantity).to eql(1)
+      expect(list_item.measurement).to eql('cup')
+      expect(list_item.description).to eql('sugar')
     end
   end
 end

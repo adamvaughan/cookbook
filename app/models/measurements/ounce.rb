@@ -11,7 +11,7 @@ module Measurements
       when measurement == Ounce then quantity
       when measurement == Cup then quantity / 8.0
       when measurement == Pint then quantity / 16.0
-      end.ceil
+      end
     end
   end
 end
