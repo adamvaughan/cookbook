@@ -10,6 +10,10 @@
       this.plan = plan;
       this.list = list;
 
+      this.visibleItems = function () {
+        return _.reject(this.list.items, { _destroy: '1' });
+      };
+
       this.addItem = function () {
         this.list.items.push({
           quantity: 1,
@@ -17,6 +21,18 @@
         });
 
         Scroll.toBottom();
+      };
+
+      this.activateItem = function (item) {
+        this.activeItem = item;
+      };
+
+      this.removeItem = function (item) {
+        if (item.id) {
+          item._destroy = '1';
+        } else {
+          this.list.items = _.without(this.list.items, item);
+        }
       };
 
       this.save = function () {

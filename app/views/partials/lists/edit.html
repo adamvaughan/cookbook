@@ -13,16 +13,20 @@
 
   <form ng-submit="main.save()">
     <ul class="table-view">
-      <li class="table-view-cell full-width" ng-repeat="item in main.list.items | orderBy:'createdAt'">
-        <div class="grid">
-          <div class="col-50">
-            <input type="number" ng-model="item.quantity">
+      <li id="item_{{$index}}" class="table-view-cell full-width" ng-repeat="item in main.visibleItems() | orderBy:'createdAt'" ng-click="main.activateItem(item)">
+        <div class="grid" ng-class="{ purchased: item.purchased }">
+          <div class="col-25">
+            <input id="item_{{$index}}_quantity" class="quantity" type="number" pattern="[0-9]*" ng-model="item.quantity">
           </div>
 
-          <div class="description col-50">
-            <span ng-hide="item.manuallyAdded">{{item | ingredientDescription}}</span>
-            <input type="text" placeholder="Description" ng-model="item.description" ng-show="item.manuallyAdded">
+          <div class="description col-75">
+            <div ng-hide="item.manuallyAdded">{{item | ingredientDescription}}</div>
+            <input id="item_{{$index}}_description" type="text" placeholder="Description" ng-model="item.description" ng-show="item.manuallyAdded">
           </div>
+        </div>
+
+        <div class="item-options" ng-show="main.activeItem == item">
+          <button type="button" class="btn btn-link pull-right" ng-click="main.removeItem(item)">Remove</button>
         </div>
       </li>
     </ul>
