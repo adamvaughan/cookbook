@@ -5,8 +5,8 @@
 
   var app = angular.module('cookbook');
 
-  app.controller('ListFormCtrl', ['$location', 'Lists', 'plan', 'list',
-    function ($location, Lists, plan, list) {
+  app.controller('ListFormCtrl', ['$location', 'Scroll', 'Lists', 'plan', 'list',
+    function ($location, Scroll, Lists, plan, list) {
       this.plan = plan;
       this.list = list;
 
@@ -15,6 +15,8 @@
           quantity: 1,
           manuallyAdded: true
         });
+
+        Scroll.toBottom();
       };
 
       this.save = function () {
