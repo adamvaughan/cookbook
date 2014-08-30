@@ -1,5 +1,6 @@
 class Measurement
   def self.lookup(text)
+    return Measurements::Blank if text.nil?
     text = text.strip.downcase.singularize.titleize
     measurement = if text.blank?
                     Measurements::Blank
