@@ -85,7 +85,13 @@ class ListGenerator
     selection.description = selection.description.pluralize(selection.quantity)
 
     if selection.measurement.present?
-      selection.measurement = selection.measurement.pluralize(selection.quantity)
+      measurement = Measurement.lookup(selection.measurement)
+
+      if measurement.always_pluralize_description
+        selection.measurement = selection.measurement.pluralize
+      else
+        selection.measurement = selection.measurement.pluralize(selection.quantity)
+      end
     end
 
     selection

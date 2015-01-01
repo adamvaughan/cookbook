@@ -19,5 +19,9 @@ module Measurements
     def self.convert(quantity, measurement)
       quantity.ceil if self == measurement
     end
+
+    def self.always_pluralize_description
+      false
+    end
   end
 end
