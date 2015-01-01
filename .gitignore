@@ -12,10 +12,13 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
+/log
 /tmp
 
 /config/secrets.yml
+/config/unicorn.rb
 
-/vendor/assets/bower_components
+/vendor
 /node_modules
+/public/assets
+/public/fonts
