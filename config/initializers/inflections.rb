@@ -16,5 +16,20 @@
 # end
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.uncountable %w(medium pasta)
+  inflect.uncountable %w(
+    medium
+    pasta
+    cumin
+    cheese
+    meat
+    oil
+    garlic
+    flour
+    broth
+    coriander
+    stock
+    corn
+    water
+    ziti
+  )
 end
