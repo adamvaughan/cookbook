@@ -82,10 +82,9 @@ class ListGenerator
     end
 
     selection.quantity = selection.quantity.ceil
+    selection.description = selection.description.pluralize(selection.quantity)
 
-    if selection.measurement.blank?
-      selection.description = selection.description.pluralize(selection.quantity)
-    else
+    if selection.measurement.present?
       selection.measurement = selection.measurement.pluralize(selection.quantity)
     end
 

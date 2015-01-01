@@ -16,5 +16,5 @@
 # end
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.uncountable %w(medium)
+  inflect.uncountable %w(medium pasta)
 end
