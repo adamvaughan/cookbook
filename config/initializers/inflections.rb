@@ -17,18 +17,21 @@
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.uncountable %w(
-    medium
-    pasta
-    cumin
-    cheese
-    meat
-    oil
-    garlic
-    flour
     broth
+    cheese
     coriander
-    stock
     corn
+    cumin
+    flour
+    garlic
+    meat
+    medium
+    milk
+    oil
+    pasta
+    salt
+    stock
+    sugar
     water
     ziti
   )

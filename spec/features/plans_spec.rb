@@ -1,6 +1,6 @@
 feature "Plans", :js do
   scenario "listing plans" do
-    5.times { |i| create(:plan, month: "#{i}") }
+    5.times { |i| create(:plan, month: "#{i}", year: 2014) }
 
     visit plans_path
 
@@ -90,7 +90,7 @@ feature "Plans", :js do
   scenario "removing a meal from a plan" do
     plan = create(:plan, month: 0, year: 2014)
     recipe = create(:recipe)
-    meal = create(:meal, plan: plan, recipe: recipe, day: 15)
+    create(:meal, plan: plan, recipe: recipe, day: 15)
 
     visit plan_path(plan)
     click_link '15'

@@ -16,12 +16,12 @@ ActiveRecord::Schema.define(version: 20140826024707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "ingredients", force: true do |t|
-    t.integer  "recipe_id",   null: false
-    t.integer  "index",       null: false
-    t.string   "quantity"
-    t.string   "measurement"
-    t.string   "description", null: false
+  create_table "ingredients", force: :cascade do |t|
+    t.integer  "recipe_id",               null: false
+    t.integer  "index",                   null: false
+    t.string   "quantity",    limit: 255
+    t.string   "measurement", limit: 255
+    t.string   "description", limit: 255, null: false
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -29,24 +29,24 @@ ActiveRecord::Schema.define(version: 20140826024707) do
 
   add_index "ingredients", ["recipe_id", "index"], name: "index_ingredients_on_recipe_id_and_index", unique: true, using: :btree
 
-  create_table "list_items", force: true do |t|
-    t.integer  "list_id",                        null: false
-    t.decimal  "quantity",                       null: false
-    t.string   "measurement"
-    t.string   "description",                    null: false
-    t.boolean  "purchased",      default: false
-    t.boolean  "manually_added", default: false
+  create_table "list_items", force: :cascade do |t|
+    t.integer  "list_id",                                    null: false
+    t.decimal  "quantity",                                   null: false
+    t.string   "measurement",    limit: 255
+    t.string   "description",    limit: 255,                 null: false
+    t.boolean  "purchased",                  default: false
+    t.boolean  "manually_added",             default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "lists", force: true do |t|
+  create_table "lists", force: :cascade do |t|
     t.integer  "plan_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "meals", force: true do |t|
+  create_table "meals", force: :cascade do |t|
     t.integer  "plan_id",    null: false
     t.integer  "recipe_id",  null: false
     t.integer  "day",        null: false
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20140826024707) do
     t.datetime "updated_at"
   end
 
-  create_table "plans", force: true do |t|
+  create_table "plans", force: :cascade do |t|
     t.integer  "month",      null: false
     t.integer  "year",       null: false
     t.datetime "created_at"
@@ -63,14 +63,14 @@ ActiveRecord::Schema.define(version: 20140826024707) do
 
   add_index "plans", ["month", "year"], name: "index_plans_on_month_and_year", unique: true, using: :btree
 
-  create_table "recipes", force: true do |t|
-    t.string   "title",      null: false
+  create_table "recipes", force: :cascade do |t|
+    t.string   "title",      limit: 255, null: false
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "steps", force: true do |t|
+  create_table "steps", force: :cascade do |t|
     t.integer  "recipe_id",   null: false
     t.integer  "index",       null: false
     t.text     "description", null: false
