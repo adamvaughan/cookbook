@@ -1,62 +1,72 @@
 /*
  *= require ratchet/dist/css/ratchet
  *= require ratchet/dist/css/ratchet-theme-ios
- *= require_tree .
  *= require_self
  */
 
- body {
-   font-family: 'Open Sans',sans-serif;
-   font-weight: 400;
- }
+@import "calendar";
+@import "grid";
+@import "lists";
+@import "modal";
+@import "plans";
+@import "recipes";
 
- h1, h2, label {
-   font-family: 'Open Sans Condensed',sans-serif;
-   font-weight: 300;
-   text-transform: lowercase;
- }
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
 
- h1 {
-   font-size: 28px;
-   padding-bottom: 10px;
- }
+h1, h2, label {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 300;
+  text-transform: lowercase;
+}
 
- h2, label {
-   font-size: 22px;
- }
+h1 {
+  font-size: 28px;
+  padding-bottom: 10px;
+}
 
- .title {
-   font-size: 22px;
-   font-weight: 700;
- }
+h2, label {
+  font-size: 22px;
+}
 
- .navigate-right:after, .push-right:after {
-   content: '\e818';
- }
+.title {
+  font-size: 22px;
+  font-weight: 700;
+}
 
- .table-view-cell, .table-view-cell a {
-   text-overflow: ellipsis;
-   white-space: nowrap;
- }
+.navigate-right:after, .push-right:after {
+  content: '\e818';
+}
 
- .table-view-cell.active, .table-view-cell.active a, .table-view-cell.step {
-   text-overflow: clip;
-   white-space: normal;
- }
+.table-view-cell, .table-view-cell a {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
- .table-view-cell.full-width {
-   padding-right: 15px;
- }
+.table-view-cell.active, .table-view-cell.active a, .table-view-cell.step {
+  text-overflow: clip;
+  white-space: normal;
+}
 
- .btn-outlined {
-   background-color: #fff;
- }
+.table-view-cell.full-width {
+  padding-right: 15px;
+}
 
- .btn {
-   background-color: #fff;
-   color: #333;
- }
+.btn-outlined {
+  background-color: #fff;
+}
 
- .btn-link {
-   color: #007aff;
- }
+.btn {
+  background-color: #fff;
+  color: #333;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn-link {
+  color: #007aff;
+}

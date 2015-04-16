@@ -3,25 +3,23 @@
 <menu></menu>
 
 <div class="bar bar-standard bar-footer">
-  <a class="icon icon-plus pull-right" href="/recipes/new"></a>
+	<a class="icon icon-plus pull-right" href="/recipes/new"></a>
 </div>
 
 <div class="content">
-  <div class="content-padded">
-    <h1>Recipes</h1>
-  </div>
+	<div class="content-padded">
+		<h1>Recipes</h1>
+	</div>
 
-  <div ng-repeat="letter in main.letters | orderBy:'toString()'">
-    <div class="content-padded">
-      <h2>{{letter}}</h2>
-    </div>
+	<div ng-repeat="letter in main.letters | orderBy:'toString()'">
+		<div class="content-padded">
+			<h2>{{letter}}</h2>
+		</div>
 
-    <ul class="table-view">
-      <li class="table-view-cell" ng-repeat="recipe in main.groupedRecipes[letter] | orderBy:'title'">
-        <a ng-href="/recipes/{{recipe.id}}" class="navigate-right">
-          {{recipe.title}}
-        </a>
-      </li>
-    </ul>
-  </div>
+		<ul class="table-view">
+			<li class="table-view-cell" ng-repeat="recipe in main.groupedRecipes[letter] | orderBy:'title'">
+				<a ng-href="/recipes/{{recipe.id}}" class="navigate-right">{{recipe.title}}</a>
+			</li>
+		</ul>
+	</div>
 </div>

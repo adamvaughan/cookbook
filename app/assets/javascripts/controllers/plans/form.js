@@ -5,8 +5,8 @@
 
   var app = angular.module('cookbook');
 
-  app.controller('PlanFormCtrl', ['$location', 'Plans', 'plan',
-    function ($location, Plans, plan) {
+  app.controller('PlanFormCtrl', ['$location', '$timeout', 'Plans', 'plan',
+    function ($location, $timeout, Plans, plan) {
       var today = new Date();
 
       if (!plan.year) {
@@ -22,6 +22,10 @@
       this.showMonths = function () {
         this.hideYears();
         this.monthsVisible = true;
+
+        $timeout(function () {
+          document.querySelector('#months .btn').focus();
+        });
       };
 
       this.hideMonths = function () {
@@ -31,6 +35,10 @@
       this.showYears = function () {
         this.hideMonths();
         this.yearsVisible = true;
+
+        $timeout(function () {
+          document.querySelector('#years .btn').focus();
+        });
       };
 
       this.hideYears = function () {

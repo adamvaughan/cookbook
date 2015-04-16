@@ -5,8 +5,8 @@
 
   var app = angular.module('cookbook');
 
-  app.controller('PlanDayCtrl', ['$routeParams', 'Plans', 'plan', 'recipes',
-    function ($routeParams, Plans, plan, recipes) {
+  app.controller('PlanDayCtrl', ['$routeParams', '$timeout', 'Plans', 'plan', 'recipes',
+    function ($routeParams, $timeout, Plans, plan, recipes) {
       this.day = parseInt($routeParams.day, 10);
       this.meals = _.select(plan.meals, { day: this.day });
       this.plan = plan;
@@ -40,6 +40,10 @@
 
       this.showRecipes = function () {
         this.recipesVisible = true;
+
+        $timeout(function () {
+          document.querySelector('#recipes .btn').focus();
+        });
       };
 
       this.hideRecipes = function () {
