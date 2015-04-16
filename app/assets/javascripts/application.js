@@ -2,7 +2,7 @@
 
 //= require angular/angular
 //= require angular-route/angular-route
-//= require lodash/dist/lodash
+//= require lodash/lodash
 //= require fastclick/lib/fastclick
 //= require_self
 //= require_tree .
