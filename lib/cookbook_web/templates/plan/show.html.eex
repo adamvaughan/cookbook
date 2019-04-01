@@ -1,0 +1,78 @@
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half-desktop">
+        <h1 class="is-lowercase">Meal Plans</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half-desktop">
+        <h2 class="is-lowercase has-text-centered">
+          <%= month(@plan.month) %> <%= @plan.year %>
+        </h2>
+
+        <table class="table is-fullwidth calendar">
+          <thead>
+            <tr>
+              <th class="has-text-centered">
+                <div>Su</div>
+              </th>
+
+              <th class="has-text-centered">
+                <div>Mo</div>
+              </th>
+
+              <th class="has-text-centered">
+                <div>Tu</div>
+              </th>
+
+              <th class="has-text-centered">
+                <div>We</div>
+              </th>
+
+              <th class="has-text-centered">
+                <div>Th</div>
+              </th>
+
+              <th class="has-text-centered">
+                <div>Fr</div>
+              </th>
+
+              <th class="has-text-centered">
+                <div>Sa</div>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%= for week <- group_plan_meals(@plan) do %>
+              <tr>
+                <%= for {day, meals} <- week do %>
+                  <td class="has-text-centered">
+                    <div>
+                      <%= if length(meals) > 0 do %>
+                        <a class="button is-primary" href="<%= Routes.plan_meal_path(@conn, :index, @plan, day) %>"><%= day %></a>
+                      <% else %>
+                        <a href="<%= Routes.plan_meal_path(@conn, :index, @plan, day) %>"><%= day %></a>
+                      <% end %>
+                    </div>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <div class="has-text-centered">
+          <%= link "Shopping List", to: Routes.plan_list_path(@conn, :show, @plan), class: "button is-lowercase" %>
+          <%= link "Back", to: Routes.plan_path(@conn, :index), class: "button is-lowercase" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

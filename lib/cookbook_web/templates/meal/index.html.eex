@@ -1,0 +1,50 @@
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half-desktop">
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <h1 class="is-lowercase">Meal Plans</h1>
+            </div>
+          </div>
+
+          <div class="level-right">
+            <div class="level-item">
+              <%= link "Add Meal", to: Routes.plan_meal_path(@conn, :new, @plan, @day), class: "button is-lowercase" %>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="has-text-centered is-lowercase"><%= month(@plan.month) %> <%= @day %>, <%= @plan.year %></h2>
+
+        <table class="table is-fullwidth">
+          <tbody>
+            <%= for meal <- @meals do %>
+              <tr>
+                <td class="meal">
+                  <%= link meal.recipe.title, to: Routes.recipe_path(@conn, :show, meal.recipe), class: "is-lowercase" %>
+                </td>
+                <td class="has-text-right">
+                  <%= link "Delete", to: Routes.meal_path(@conn, :delete, meal), class: "button is-danger is-lowercase", method: "delete",  data: [confirm: "Are you sure?"] %>
+                </td>
+              </tr>
+            <% end %>
+
+            <%= if length(@meals) == 0 do %>
+              <tr>
+                <td class="has-text-centered is-italic has-text-grey is-lowercase">
+                  No meals
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <div class="has-text-centered">
+          <%= link "Back", to: Routes.plan_path(@conn, :show, @plan), class: "button is-lowercase" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

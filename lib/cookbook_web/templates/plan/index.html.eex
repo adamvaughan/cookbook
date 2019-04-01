@@ -1,0 +1,27 @@
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half-desktop">
+        <h1 class="is-lowercase">Meal Plans</h1>
+
+        <table class="table is-fullwidth">
+          <tbody>
+            <%= for {year, plans} <- group_plans(@plans) do %>
+              <tr>
+                <th class="plan-year"><%= year %></th>
+              </tr>
+
+              <%= for plan <- plans do %>
+                <tr>
+                  <td class="plan">
+                    <%= link month(plan.month), to: Routes.plan_path(@conn, :show, plan), class: "is-lowercase" %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

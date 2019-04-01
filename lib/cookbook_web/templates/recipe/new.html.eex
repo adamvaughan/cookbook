@@ -1,0 +1,153 @@
+<%= form_for @changeset, Routes.recipe_path(@conn, :create), [id: "recipe-form"], fn f -> %>
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <h1 class="is-lowercase">New Recipe</h1>
+
+          <div class="field">
+            <label class="label is-lowercase">Title</label>
+            <div class="control">
+              <%= text_input f, :title, class: "input #{state_class(f, :title)}" %>
+              <%= error_tag f, :title %>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label is-lowercase">Notes</label>
+            <div class="control">
+              <%= textarea f, :notes, class: "textarea #{state_class(f, :notes)}" %>
+              <%= error_tag f, :notes %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <h2 class="is-lowercase">Ingredients</h2>
+
+          <div class="columns is-hidden-mobile">
+            <div class="column is-one-fifth">
+              <label class="label is-lowercase">Quantity</label>
+            </div>
+
+            <div class="column is-one-fifth">
+              <label class="label is-lowercase">Measurement</label>
+            </div>
+
+            <div class="column is-three-fifths">
+              <label class="label is-lowercase">Description</label>
+            </div>
+          </div>
+
+          <%= inputs_for f, :ingredients, fn p -> %>
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <label class="label is-lowercase is-hidden-tablet">Quantity</label>
+                <%= text_input p, :quantity, class: "input ingredient-quantity #{state_class(p, :quantity)}" %>
+                <%= error_tag p, :quantity %>
+              </div>
+
+              <div class="column is-one-fifth">
+                <label class="label is-lowercase is-hidden-tablet">Measurement</label>
+                <%= text_input p, :measurement, class: "input #{state_class(p, :measurement)}" %>
+                <%= error_tag p, :measurement %>
+              </div>
+
+              <div class="column is-three-fifths">
+                <label class="label is-lowercase is-hidden-tablet">Description</label>
+                <%= text_input p, :description, class: "input #{state_class(p, :description)}" %>
+                <%= error_tag p, :description %>
+              </div>
+
+              <hr class="is-hidden-tablet">
+            </div>
+          <% end %>
+
+          <div class="control">
+            <button type="button" id="add-ingredient" class="button is-lowercase">Add Ingredient</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <h2 class="is-lowercase">Steps</h2>
+
+          <%= inputs_for f, :steps, fn p -> %>
+            <div class="field">
+              <label class="label is-lowercase is-sr-only">Description</label>
+              <div class="control">
+                <%= textarea p, :description, class: "textarea step-description #{state_class(p, :description)}" %>
+                <%= error_tag p, :description %>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="control">
+            <button type="button" id="add-step" class="button is-lowercase">Add Step</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <div class="field is-grouped">
+            <div class="control">
+              <button type="submit" class="button is-primary is-lowercase">Save</button>
+            </div>
+
+            <div class="control">
+              <%= link "Cancel", to: Routes.recipe_path(@conn, :index), class: "button is-lowercase" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<script>
+  (function () {
+    <%= if @focus == "recipe" do %>
+      var field = document.getElementById('recipe_title');
+    <% end %>
+
+    <%= if @focus == "ingredients" do %>
+      var field = Array.prototype.slice.call(document.querySelectorAll('input.ingredient-quantity'), -1)[0];
+    <% end %>
+
+    <%= if @focus == "steps" do %>
+      var field = Array.prototype.slice.call(document.querySelectorAll('textarea.step-description'), -1)[0];
+    <% end %>
+
+    field.focus();
+
+    var form = document.getElementById('recipe-form');
+    var addIngredient = document.getElementById('add-ingredient');
+    var addStep = document.getElementById('add-step');
+
+    addIngredient.addEventListener('click', function () {
+      form.action = '<%= Routes.recipe_path(@conn, :add_ingredient) %>';
+      form.submit();
+    });
+
+    addStep.addEventListener('click', function () {
+      form.action = '<%= Routes.recipe_path(@conn, :add_step) %>';
+      form.submit();
+    });
+  })();
+</script>

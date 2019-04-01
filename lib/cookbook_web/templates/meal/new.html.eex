@@ -1,0 +1,40 @@
+<%= form_for @changeset, Routes.plan_meal_path(@conn, :create, @plan), [id: "meal-form"], fn f -> %>
+  <%= hidden_input f, :day, value: @day %>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <h1 class="is-lowercase">New Meal</h1>
+
+          <h2 class="has-text-centered is-lowercase"><%= month(@plan.month) %> <%= @day %>, <%= @plan.year %></h2>
+
+          <div class="field">
+            <label class="label is-lowercase">Recipe</label>
+            <div class="select">
+              <%= select f, :recipe_id, Enum.map(@recipes, &{&1.title, &1.id}) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <div class="field is-grouped">
+            <div class="control">
+              <button type="submit" name="submit" class="button is-primary is-lowercase">Save</button>
+            </div>
+
+            <div class="control">
+              <%= link "Cancel", to: Routes.plan_meal_path(@conn, :index, @plan, @day), class: "button is-lowercase" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>

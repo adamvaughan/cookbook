@@ -1,0 +1,65 @@
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half-desktop">
+        <h1 class="is-lowercase">Shopping List</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half-desktop">
+        <h2 class="is-lowercase"><%= month(@plan.month) %> <%= @plan.year %></h2>
+
+        <%= form_for @changeset, Routes.list_item_path(@conn, :create, @list), [], fn f -> %>
+          <%= hidden_input f, :list_id %>
+          <%= hidden_input f, :manually_added, value: true %>
+
+          <div class="field has-addons">
+            <div class="control">
+              <%= text_input f, :description, class: "input", placeholder: "Add an item" %>
+            </div>
+            <div class="control">
+              <button type="submit" class="button is-info">Add</a>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half-desktop">
+        <table class="table is-fullwidth">
+          <tbody>
+            <%= for item <- order_items(@list.items) do %>
+              <tr>
+                <td class="is-lowercase">
+                  <%= form_for Cookbook.Lists.Item.changeset(item), Routes.item_path(@conn, :update, item), [], fn f -> %>
+                    <label class="checkbox<%= if item.purchased, do: " checked" %>">
+                      <%= checkbox f, :purchased, onchange: "this.form.submit()" %>
+                      <%= round_quantity(item.quantity) %>
+                      <%= item.measurement |> pluralize_measurement(item.quantity) |> abbreviate_measurement %>
+                      <%= item.description |> pluralize_description(item.quantity) |> replace_fractions |> raw %>
+                    </label>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <div>
+          <%= link "Regenerate", to: Routes.plan_list_path(@conn, :delete, @plan), method: "delete", class: "button is-lowercase" %>
+          <%= link "Back", to: Routes.plan_path(@conn, :show, @plan), class: "button is-lowercase" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,80 @@
+@charset "utf-8";
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|Source+Sans+Pro");
+
+$body-size: 18px;
+$content-table-cell-border-width: 0;
+$content-table-cell-padding: 0.75em;
+$control-radius: 2px;
+$family-sans-serif: "Source Sans Pro", sans-serif;
+$section-padding: 1.5em;
+$primary: hsl(217, 71%, 53%);
+$primary-invert: #fff;
+$link: $primary;
+$tablet: 750px;
+$input-shadow: none;
+
+@import "~bulma/bulma";
+
+.navbar-brand,
+h1,
+h2,
+th {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-weight: 700;
+}
+
+.navbar-brand {
+  font-size: 2em;
+}
+
+td.is-narrow {
+  width: 1%;
+  white-space: nowrap;
+}
+
+// recipes index
+th.recipe-letter {
+  font-size: 1.5em;
+}
+
+td.recipe {
+  padding-left: 1.5em;
+}
+
+// recipes show
+.ingredient td:first-child {
+  padding-left: 0.5em;
+}
+
+.steps li {
+  padding: 0.5em;
+}
+
+// meal plans show
+.calendar {
+  div {
+    width: 48px;
+    height: 48px;
+  }
+
+  .button {
+    width: 100%;
+  }
+}
+
+// list show
+.checkbox {
+  padding-left: 1em;
+
+  &.checked {
+    text-decoration: line-through;
+    color: $grey;
+  }
+
+  input {
+    position: absolute;
+    top: 5px;
+    left: -1px;
+  }
+}

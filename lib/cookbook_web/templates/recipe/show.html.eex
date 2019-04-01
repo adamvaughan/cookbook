@@ -1,0 +1,70 @@
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half-desktop">
+        <h1 class="is-lowercase"><%= @recipe.title %></h1>
+
+        <%= if @recipe.notes do %>
+          <p><%= @recipe.notes %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= if Enum.any?(@recipe.ingredients) do %>
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <h2 class="is-lowercase">Ingredients</h2>
+
+          <table class="table is-fullwidth ingredients">
+            <tbody>
+              <%= for ingredient <- order_ingredients(@recipe.ingredients) do %>
+                <tr class="ingredient">
+                  <td class="is-narrow is-lowercase has-text-right">
+                    <%= ingredient.quantity |> replace_fractions |> raw %>
+                    <%= ingredient.measurement |> pluralize_measurement(ingredient.quantity) |> abbreviate_measurement %>
+                  </td>
+
+                  <td class="is-lowercase">
+                    <%= ingredient.description |> replace_fractions |> raw %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<%= if Enum.any?(@recipe.steps) do %>
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <h2 class="is-lowercase">Steps</h2>
+
+          <ol class="steps">
+            <%= for step <- order_steps(@recipe.steps) do %>
+              <li><%= step.description |> replace_fractions |> raw %></li>
+            <% end %>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half-desktop">
+        <%= link "Edit", to: Routes.recipe_path(@conn, :edit, @recipe), class: "button is-lowercase" %>
+      </div>
+    </div>
+  </div>
+</section>
