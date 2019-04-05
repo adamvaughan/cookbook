@@ -52,7 +52,8 @@ config :cookbook, CookbookWeb.Endpoint,
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/cookbook_web/views/.*(ex)$},
-      ~r{lib/cookbook_web/templates/.*(eex)$}
+      ~r{lib/cookbook_web/templates/.*(eex)$},
+      ~r{lib/cookbook_web/live/.*(ex)$}
     ]
   ]
 
