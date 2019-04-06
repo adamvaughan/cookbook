@@ -1,0 +1,125 @@
+<%= form_for @changeset, "#", [phx_change: 'update-changeset', phx_submit: 'save'], fn f -> %>
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <div class="field">
+            <label class="label is-lowercase">Title</label>
+            <div class="control">
+              <%= text_input f, :title, class: "input #{state_class(f, :title)}", autocomplete: "off", autofocus: true %>
+              <%= error_tag f, :title %>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label is-lowercase">Notes</label>
+            <div class="control">
+              <%= textarea f, :notes, class: "textarea #{state_class(f, :notes)}" %>
+              <%= error_tag f, :notes %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <h2 class="is-lowercase">Ingredients</h2>
+
+          <div class="columns is-hidden-mobile">
+            <div class="column is-one-fifth">
+              <label class="label is-lowercase">Quantity</label>
+            </div>
+
+            <div class="column is-one-fifth">
+              <label class="label is-lowercase">Measurement</label>
+            </div>
+
+            <div class="column is-three-fifths">
+              <label class="label is-lowercase">Description</label>
+            </div>
+          </div>
+
+          <%= inputs_for f, :ingredients, fn p -> %>
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <label class="label is-lowercase is-hidden-tablet">Quantity</label>
+                <%= text_input p, :quantity, class: "input ingredient-quantity #{state_class(p, :quantity)}", autocomplete: "off" %>
+                <%= error_tag p, :quantity %>
+              </div>
+
+              <div class="column is-one-fifth">
+                <label class="label is-lowercase is-hidden-tablet">Measurement</label>
+                <%= text_input p, :measurement, class: "input #{state_class(p, :measurement)}", autocomplete: "off" %>
+                <%= error_tag p, :measurement %>
+              </div>
+
+              <div class="column is-three-fifths">
+                <label class="label is-lowercase is-hidden-tablet">Description</label>
+                <%= text_input p, :description, class: "input #{state_class(p, :description)}", autocomplete: "off" %>
+                <%= error_tag p, :description %>
+              </div>
+
+              <hr class="is-hidden-tablet">
+            </div>
+          <% end %>
+
+          <div class="control">
+            <button type="button" class="button is-lowercase" phx-click="add-ingredient">Add Ingredient</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <h2 class="is-lowercase">Steps</h2>
+
+          <%= inputs_for f, :steps, fn p -> %>
+            <div class="field">
+              <label class="label is-lowercase is-sr-only">Description</label>
+              <div class="control">
+                <%= textarea p, :description, class: "textarea step-description #{state_class(p, :description)}" %>
+                <%= error_tag p, :description %>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="control">
+            <button type="button" class="button is-lowercase" phx-click="add-step">Add Step</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half-desktop">
+          <div class="field is-grouped">
+            <div class="control">
+              <button type="submit" class="button is-primary is-lowercase">Save</button>
+            </div>
+
+            <div class="control">
+              <%= link "Cancel", to: @back, class: "button is-lowercase" %>
+            </div>
+
+            <%= if assigns[:recipe] do %>
+              <div class="control">
+                <%= link "Delete", to: "#", class: "button is-danger is-lowercase", data: [confirm: "Are you sure?"], phx_click: "delete" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>

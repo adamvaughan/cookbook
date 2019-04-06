@@ -19,11 +19,7 @@ defmodule CookbookWeb.Router do
 
     get "/", RecipeController, :index
 
-    resources("/recipes", RecipeController)
-    post("/recipes/add-ingredient", RecipeController, :add_ingredient)
-    post("/recipes/add-step", RecipeController, :add_step)
-    put("/recipes/:id/add-ingredient", RecipeController, :add_ingredient)
-    put("/recipes/:id/add-step", RecipeController, :add_step)
+    resources("/recipes", RecipeController, only: [:index, :show, :new, :edit])
 
     resources("/plans", PlanController) do
       resources("/day/:day/meals", MealController, only: [:index, :new])
