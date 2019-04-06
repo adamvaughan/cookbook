@@ -16,30 +16,7 @@
           </div>
         </div>
 
-        <div class="control has-icons-left">
-          <input id="recipe-filter" class="input" type="text">
-          <span class="icon is-left">
-            <i class="fas fa-search"></i>
-          </span>
-        </div>
-
-        <table class="table is-fullwidth">
-          <tbody>
-            <%= for {letter, recipes} <- group_recipes(@recipes) do %>
-              <tr>
-                <th class="recipe-letter"><%= letter %></th>
-              </tr>
-
-              <%= for recipe <- recipes do %>
-                <tr>
-                  <td class="recipe">
-                    <%= link recipe.title, to: Routes.recipe_path(@conn, :show, recipe), class: "is-lowercase" %>
-                  </td>
-                </tr>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
+        <%= live_render(@conn, CookbookWeb.RecipeListView) %>
       </div>
     </div>
   </div>

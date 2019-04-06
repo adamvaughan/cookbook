@@ -9,6 +9,12 @@ defmodule Cookbook.Recipes do
     Repo.all(query)
   end
 
+  def get_recipes(filter) do
+    filter = "%#{String.downcase(filter)}%"
+    query = from(recipe in Recipe, where: ilike(recipe.title, ^filter), order_by: recipe.title)
+    Repo.all(query)
+  end
+
   def get_recipe(id) do
     query = from(recipe in Recipe, where: recipe.id == ^id, preload: [:ingredients, :steps])
 

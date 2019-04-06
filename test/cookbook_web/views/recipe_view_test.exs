@@ -2,26 +2,7 @@ defmodule CookbookWeb.RecipeViewTest do
   use CookbookWeb.ConnCase, async: true
 
   alias CookbookWeb.RecipeView
-  alias Cookbook.Recipes.{Ingredient, Recipe, Step}
-
-  describe "group_recipes/1" do
-    test "grouping recipes" do
-      recipes = [
-        %Recipe{title: "Alphabet Soup"},
-        %Recipe{title: "Chicken Noodle Soup"},
-        %Recipe{title: "Chicken Pot Pie"},
-        %Recipe{title: "Green Eggs and Ham"}
-      ]
-
-      grouped_recipes = RecipeView.group_recipes(recipes)
-
-      assert grouped_recipes == %{
-               "a" => [%Recipe{title: "Alphabet Soup"}],
-               "c" => [%Recipe{title: "Chicken Noodle Soup"}, %Recipe{title: "Chicken Pot Pie"}],
-               "g" => [%Recipe{title: "Green Eggs and Ham"}]
-             }
-    end
-  end
+  alias Cookbook.Recipes.{Ingredient, Step}
 
   describe "order_ingredients/1" do
     test "ordering ingredients" do

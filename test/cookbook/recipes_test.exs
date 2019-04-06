@@ -15,6 +15,19 @@ defmodule Cookbook.RecipesTest do
     end
   end
 
+  describe "get_recipes/1" do
+    test "getting recipes that match a query" do
+      recipe_1 = insert(:recipe, title: "My Recipe")
+      recipe_2 = insert(:recipe, title: "Your Recipe")
+      insert(:recipe, title: "Something Good")
+
+      recipes = Recipes.get_recipes("recipe")
+      assert length(recipes) == 2
+      assert List.first(recipes).id == recipe_1.id
+      assert List.last(recipes).id == recipe_2.id
+    end
+  end
+
   describe "get_recipe/1" do
     test "getting a recipe" do
       recipe = insert(:recipe)

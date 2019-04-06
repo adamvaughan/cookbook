@@ -1,0 +1,26 @@
+<div class="control has-icons-left">
+  <form phx-change="filter" phx-submit="filter">
+    <input class="input" type="text" name="q" autocomplete="off" autofocus>
+    <span class="icon is-left">
+      <i class="fas fa-search"></i>
+    </span>
+  </form>
+</div>
+
+<table class="table is-fullwidth">
+  <tbody>
+    <%= for {letter, recipes} <- @recipes do %>
+      <tr>
+        <th class="recipe-letter"><%= letter %></th>
+      </tr>
+
+      <%= for recipe <- recipes do %>
+        <tr>
+          <td class="recipe">
+            <%= link recipe.title, to: Routes.recipe_path(CookbookWeb.Endpoint, :show, recipe), class: "is-lowercase" %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

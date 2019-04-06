@@ -21,4 +21,3 @@ liveSocket.connect()
 // import socket from "./socket"
 
 import "./navbar"
-import "./recipe_filter"
