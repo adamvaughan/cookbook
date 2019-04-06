@@ -3,8 +3,8 @@ defmodule CookbookWeb.RecipeListViewTest do
 
   import Phoenix.LiveViewTest
 
-  alias CookbookWeb.RecipeListView
   alias Cookbook.Recipes.Recipe
+  alias CookbookWeb.RecipeListView
 
   describe "group_recipes/1" do
     test "grouping recipes" do

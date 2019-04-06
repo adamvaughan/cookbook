@@ -3,8 +3,8 @@ defmodule CookbookWeb.RecipeFormViewTest do
 
   import Phoenix.LiveViewTest
 
-  alias CookbookWeb.RecipeFormView
   alias Cookbook.Recipes
+  alias CookbookWeb.RecipeFormView
   alias Recipes.Recipe
 
   describe "mount/2" do

@@ -2,8 +2,6 @@ defmodule CookbookWeb.RecipeListView do
   use Phoenix.LiveView
   use Phoenix.HTML
 
-  alias CookbookWeb.Router.Helpers, as: Routes
-
   def render(assigns) do
     CookbookWeb.RecipeView.render("list.html", assigns)
   end
