@@ -4,6 +4,7 @@ defmodule Cookbook.Recipes.Step do
   import Ecto.Changeset
 
   alias Cookbook.Recipes.Recipe
+  alias Cookbook.Utils
 
   schema "steps" do
     field :index, :integer
@@ -17,6 +18,7 @@ defmodule Cookbook.Recipes.Step do
   def changeset(step, attrs \\ %{}) do
     step
     |> cast(attrs, [:index, :description, :recipe_id])
+    |> update_change(:description, &Utils.trim/1)
     |> validate_required([:index, :description])
     |> assoc_constraint(:recipe)
   end

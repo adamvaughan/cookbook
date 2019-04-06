@@ -4,6 +4,7 @@ defmodule Cookbook.Lists.Item do
   import Ecto.Changeset
 
   alias Cookbook.Lists.List
+  alias Cookbook.Utils
 
   schema "items" do
     field :quantity, :float
@@ -20,6 +21,8 @@ defmodule Cookbook.Lists.Item do
   def changeset(item, attrs \\ %{}) do
     item
     |> cast(attrs, [:quantity, :measurement, :description, :purchased, :manually_added, :list_id])
+    |> update_change(:measurement, &Utils.trim/1)
+    |> update_change(:description, &Utils.trim/1)
     |> validate_required([:description])
     |> assoc_constraint(:list)
   end

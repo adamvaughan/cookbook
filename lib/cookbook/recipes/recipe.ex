@@ -4,6 +4,7 @@ defmodule Cookbook.Recipes.Recipe do
   import Ecto.Changeset
 
   alias Cookbook.Recipes.{Ingredient, Step}
+  alias Cookbook.Utils
 
   schema "recipes" do
     field :title, :string
@@ -20,6 +21,8 @@ defmodule Cookbook.Recipes.Recipe do
     |> cast(attrs, [:title, :notes])
     |> cast_assoc(:ingredients)
     |> cast_assoc(:steps)
+    |> update_change(:title, &Utils.trim/1)
+    |> update_change(:notes, &Utils.trim/1)
     |> validate_required([:title])
     |> unique_constraint(:title)
   end
