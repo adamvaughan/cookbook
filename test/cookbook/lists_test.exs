@@ -101,6 +101,7 @@ defmodule Cookbook.ListsTest do
     test "keeping manually added items" do
       list = insert(:list)
       item = insert(:item, list: list, manually_added: true)
+      insert(:item, list: list, manually_added: true, purchased: true)
 
       {:ok, list} = list |> Repo.preload(:items) |> Lists.regenerate()
       assert length(list.items) == 1

@@ -24,7 +24,7 @@ defmodule Cookbook.Lists do
     {:ok, plan} = Plans.get_plan(list.plan_id)
 
     Enum.each(list.items, fn item ->
-      unless item.manually_added do
+      if !item.manually_added || item.purchased do
         Repo.delete(item)
       end
     end)
