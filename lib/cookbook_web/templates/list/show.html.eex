@@ -46,7 +46,7 @@
                       <%= checkbox f, :purchased, onchange: "this.form.submit()" %>
                       <%= round_quantity(item.quantity) %>
                       <%= item.measurement |> pluralize_measurement(item.quantity) |> abbreviate_measurement %>
-                      <%= item.description |> pluralize_description(item.quantity) |> replace_fractions |> raw %>
+                      <%= item.description |> replace_fractions |> raw %>
                     </label>
                   <% end %>
                 </td>
