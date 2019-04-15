@@ -24,6 +24,10 @@ defmodule Cookbook.Recipes do
     end
   end
 
+  def change_recipe(recipe, attrs \\ %{}) do
+    Recipe.changeset(recipe, attrs)
+  end
+
   def create_recipe(attrs = %{"ingredients" => ingredients}) when is_map(ingredients) do
     ingredients = Map.values(ingredients)
     attrs |> Map.put("ingredients", ingredients) |> create_recipe()

@@ -75,6 +75,10 @@ defmodule Cookbook.Plans do
     end
   end
 
+  def change_meal(meal, attrs \\ %{}) do
+    Meal.changeset(meal, attrs)
+  end
+
   def create_meal(plan, attrs) do
     attrs = Map.put(attrs, "plan_id", plan.id)
     changeset = Meal.changeset(%Meal{}, attrs)

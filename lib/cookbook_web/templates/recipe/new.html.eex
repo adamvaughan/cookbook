@@ -8,9 +8,4 @@
   </div>
 </section>
 
-<%=
-  live_render(@conn, CookbookWeb.RecipeFormView, session: %{
-    changeset: @changeset,
-    back: Routes.recipe_path(CookbookWeb.Endpoint, :index)
-  })
-%>
+<%= live_render(@conn, CookbookWeb.RecipeFormView) %>

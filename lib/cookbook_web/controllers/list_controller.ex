@@ -7,7 +7,7 @@ defmodule CookbookWeb.ListController do
   def show(conn, %{"plan_id" => plan_id}) do
     with {:ok, plan} <- Plans.get_plan(plan_id),
          {:ok, list} <- Lists.get_list(plan) do
-      changeset = Item.changeset(%Item{list_id: list.id})
+      changeset = Lists.change_item(%Item{}, %{list_id: list.id})
       render(conn, "show.html", plan: plan, list: list, changeset: changeset)
     end
   end

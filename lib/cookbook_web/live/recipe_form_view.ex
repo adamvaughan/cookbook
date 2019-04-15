@@ -13,11 +13,16 @@ defmodule CookbookWeb.RecipeFormView do
     RecipeView.render("form.html", assigns)
   end
 
-  def mount(%{recipe: recipe, changeset: changeset, back: back}, socket) do
+  def mount(%{recipe_id: recipe_id}, socket) do
+    {:ok, recipe} = Recipes.get_recipe(recipe_id)
+    changeset = recipe |> Recipes.change_recipe() |> ensure_ingredients |> ensure_steps
+    back = Routes.recipe_path(socket, :show, recipe)
     {:ok, assign(socket, recipe: recipe, changeset: changeset, back: back)}
   end
 
-  def mount(%{changeset: changeset, back: back}, socket) do
+  def mount(_session, socket) do
+    changeset = %Recipe{} |> Recipes.change_recipe() |> ensure_ingredients |> ensure_steps
+    back = Routes.recipe_path(socket, :index)
     {:ok, assign(socket, changeset: changeset, back: back)}
   end
 
@@ -65,6 +70,7 @@ defmodule CookbookWeb.RecipeFormView do
         {:stop, redirect(socket, to: Routes.recipe_path(CookbookWeb.Endpoint, :index))}
 
       {:error, changeset = %Ecto.Changeset{}} ->
+        changeset = changeset |> ensure_ingredients |> ensure_steps
         {:noreply, assign(socket, changeset: changeset)}
     end
   end
@@ -79,7 +85,32 @@ defmodule CookbookWeb.RecipeFormView do
         {:stop, redirect(socket, to: Routes.recipe_path(CookbookWeb.Endpoint, :show, recipe))}
 
       {:error, changeset = %Ecto.Changeset{}} ->
+        changeset = changeset |> ensure_ingredients |> ensure_steps
         {:noreply, assign(socket, changeset: changeset)}
     end
+  end
+
+  defp ensure_ingredients(changeset) do
+    changeset
+    |> Ecto.Changeset.get_field(:ingredients, [%{}])
+    |> ensure_ingredients(changeset)
+  end
+
+  defp ensure_ingredients(ingredients, changeset) when length(ingredients) > 0, do: changeset
+
+  defp ensure_ingredients(_ingredients, changeset) do
+    Ecto.Changeset.put_change(changeset, :ingredients, [%{}])
+  end
+
+  defp ensure_steps(changeset) do
+    changeset
+    |> Ecto.Changeset.get_field(:steps, [%{}])
+    |> ensure_steps(changeset)
+  end
+
+  defp ensure_steps(steps, changeset) when length(steps) > 0, do: changeset
+
+  defp ensure_steps(_steps, changeset) do
+    Ecto.Changeset.put_change(changeset, :steps, [%{}])
   end
 end

@@ -16,7 +16,7 @@ defmodule CookbookWeb.MealController do
   def new(conn, %{"plan_id" => plan_id, "day" => day}) do
     with {:ok, plan} <- Plans.get_plan(plan_id),
          recipes <- Recipes.get_recipes() do
-      changeset = Meal.changeset(%Meal{}, %{day: day})
+      changeset = Plans.change_meal(%Meal{}, %{day: day})
       render(conn, "new.html", plan: plan, day: day, recipes: recipes, changeset: changeset)
     end
   end

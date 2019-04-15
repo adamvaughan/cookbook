@@ -9,45 +9,22 @@ defmodule CookbookWeb.RecipeFormViewTest do
 
   describe "mount/2" do
     test "creating a recipe" do
-      changeset = Recipe.changeset(%Recipe{})
-
-      {:ok, _view, html} =
-        mount(CookbookWeb.Endpoint, RecipeFormView,
-          session: %{changeset: changeset, back: "recipe-index"}
-        )
-
-      assert html =~ "recipe-index"
+      {:ok, _view, _html} = mount(CookbookWeb.Endpoint, RecipeFormView)
     end
 
     test "updating a recipe" do
       recipe = insert(:recipe)
-      changeset = Recipe.changeset(recipe)
 
       {:ok, _view, html} =
-        mount(CookbookWeb.Endpoint, RecipeFormView,
-          session: %{
-            recipe: recipe,
-            changeset: changeset,
-            back: "recipe-show"
-          }
-        )
+        mount(CookbookWeb.Endpoint, RecipeFormView, session: %{recipe_id: recipe.id})
 
-      assert html =~ "recipe-show"
       assert html =~ "Delete"
     end
   end
 
   describe "handle_event/3" do
     test "adding an ingredient" do
-      changeset = Recipe.changeset(%Recipe{}, %{"ingredients" => [%{}]})
-
-      {:ok, view, html} =
-        mount(CookbookWeb.Endpoint, RecipeFormView,
-          session: %{
-            changeset: changeset,
-            back: "#"
-          }
-        )
+      {:ok, view, html} = mount(CookbookWeb.Endpoint, RecipeFormView)
 
       assert html =~ ~r/recipe_title/
       assert html =~ ~r/recipe_ingredients_0_quantity/
@@ -61,15 +38,7 @@ defmodule CookbookWeb.RecipeFormViewTest do
     end
 
     test "adding a step" do
-      changeset = Recipe.changeset(%Recipe{}, %{"steps" => [%{}]})
-
-      {:ok, view, html} =
-        mount(CookbookWeb.Endpoint, RecipeFormView,
-          session: %{
-            changeset: changeset,
-            back: "#"
-          }
-        )
+      {:ok, view, html} = mount(CookbookWeb.Endpoint, RecipeFormView)
 
       assert html =~ ~r/recipe_title/
       assert html =~ ~r/recipe_steps_0_description/
@@ -83,15 +52,7 @@ defmodule CookbookWeb.RecipeFormViewTest do
     end
 
     test "updating the changeset" do
-      changeset = Recipe.changeset(%Recipe{})
-
-      {:ok, view, _html} =
-        mount(CookbookWeb.Endpoint, RecipeFormView,
-          session: %{
-            changeset: changeset,
-            back: "#"
-          }
-        )
+      {:ok, view, _html} = mount(CookbookWeb.Endpoint, RecipeFormView)
 
       html =
         render_change(view, "update-changeset", %{"recipe" => %{"title" => "My Test Recipe"}})
@@ -100,8 +61,6 @@ defmodule CookbookWeb.RecipeFormViewTest do
     end
 
     test "creating a recipe" do
-      changeset = Recipe.changeset(%Recipe{})
-
       attrs = %{
         "recipe" => %{
           "title" => "My Recipe",
@@ -120,13 +79,7 @@ defmodule CookbookWeb.RecipeFormViewTest do
         }
       }
 
-      {:ok, view, _html} =
-        mount(CookbookWeb.Endpoint, RecipeFormView,
-          session: %{
-            changeset: changeset,
-            back: "#"
-          }
-        )
+      {:ok, view, _html} = mount(CookbookWeb.Endpoint, RecipeFormView)
 
       assert {:error, :redirect} = render_submit(view, "save", attrs)
 
@@ -143,8 +96,6 @@ defmodule CookbookWeb.RecipeFormViewTest do
     end
 
     test "creating a recipe with invalid data" do
-      changeset = Recipe.changeset(%Recipe{})
-
       attrs = %{
         "recipe" => %{
           "title" => "",
@@ -153,13 +104,7 @@ defmodule CookbookWeb.RecipeFormViewTest do
         }
       }
 
-      {:ok, view, _html} =
-        mount(CookbookWeb.Endpoint, RecipeFormView,
-          session: %{
-            changeset: changeset,
-            back: "#"
-          }
-        )
+      {:ok, view, _html} = mount(CookbookWeb.Endpoint, RecipeFormView)
 
       html = render_submit(view, "save", attrs)
       assert html =~ "can&#39;t be blank"
@@ -170,7 +115,6 @@ defmodule CookbookWeb.RecipeFormViewTest do
       insert(:ingredient, recipe: recipe, quantity: "1", measurement: "cup", description: "rice")
       insert(:step, recipe: recipe, description: "Cook it.")
       {:ok, recipe} = Recipes.get_recipe(recipe.id)
-      changeset = Recipe.changeset(recipe)
 
       attrs = %{
         "recipe" => %{
@@ -199,13 +143,7 @@ defmodule CookbookWeb.RecipeFormViewTest do
       }
 
       {:ok, view, _html} =
-        mount(CookbookWeb.Endpoint, RecipeFormView,
-          session: %{
-            recipe: recipe,
-            changeset: changeset,
-            back: "#"
-          }
-        )
+        mount(CookbookWeb.Endpoint, RecipeFormView, session: %{recipe_id: recipe.id})
 
       assert {:error, :redirect} = render_submit(view, "save", attrs)
 
@@ -233,7 +171,6 @@ defmodule CookbookWeb.RecipeFormViewTest do
       recipe = insert(:recipe, title: "My Recipe")
       insert(:ingredient, recipe: recipe, quantity: "1", measurement: "cup", description: "rice")
       insert(:step, recipe: recipe, description: "Cook it.")
-      changeset = Recipe.changeset(recipe)
 
       attrs = %{
         "recipe" => %{
@@ -244,13 +181,7 @@ defmodule CookbookWeb.RecipeFormViewTest do
       }
 
       {:ok, view, _html} =
-        mount(CookbookWeb.Endpoint, RecipeFormView,
-          session: %{
-            recipe: recipe,
-            changeset: changeset,
-            back: "#"
-          }
-        )
+        mount(CookbookWeb.Endpoint, RecipeFormView, session: %{recipe_id: recipe.id})
 
       html = render_submit(view, "save", attrs)
       assert html =~ "can&#39;t be blank"
@@ -258,16 +189,9 @@ defmodule CookbookWeb.RecipeFormViewTest do
 
     test "deleting a recipe" do
       recipe = insert(:recipe)
-      changeset = Recipe.changeset(recipe)
 
       {:ok, view, _html} =
-        mount(CookbookWeb.Endpoint, RecipeFormView,
-          session: %{
-            recipe: recipe,
-            changeset: changeset,
-            back: "#"
-          }
-        )
+        mount(CookbookWeb.Endpoint, RecipeFormView, session: %{recipe_id: recipe.id})
 
       assert {:error, :redirect} = render_click(view, "delete")
       assert is_nil(Repo.get(Recipe, recipe.id))

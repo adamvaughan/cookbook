@@ -135,6 +135,10 @@ defmodule Cookbook.Lists do
     end
   end
 
+  def change_item(item, attrs \\ %{}) do
+    Item.changeset(item, attrs)
+  end
+
   def create_item(list, attrs) do
     attrs = Map.put(attrs, "list_id", list.id)
     changeset = Item.changeset(%Item{}, attrs)
