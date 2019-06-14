@@ -1,7 +1,7 @@
 defmodule Cookbook.Recipes do
   import Ecto.Query, only: [from: 2]
 
-  alias Cookbook.Recipes.Recipe
+  alias Cookbook.Recipes.{Recipe, Ingredient, Step}
   alias Cookbook.Repo
 
   def get_recipes do
@@ -16,7 +16,14 @@ defmodule Cookbook.Recipes do
   end
 
   def get_recipe(id) do
-    query = from(recipe in Recipe, where: recipe.id == ^id, preload: [:ingredients, :steps])
+    ingredients_query = from(ingredient in Ingredient, order_by: ingredient.index)
+    steps_query = from(step in Step, order_by: step.index)
+
+    query =
+      from(recipe in Recipe,
+        where: recipe.id == ^id,
+        preload: [ingredients: ^ingredients_query, steps: ^steps_query]
+      )
 
     case Repo.one(query) do
       nil -> {:error, :not_found}
